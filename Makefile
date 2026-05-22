@@ -4,15 +4,40 @@ TEMP_DIR := temp-export
 
 LATEST_VERSION := $(shell jq -r .defaultVersion $(OUT_DIR)/versions.json)
 
+# localize-images: Markdown内のリモート画像URLをローカルに変換した一時ファイルを作成
+#   claat はローカルMarkdownソース内のリモート画像URLを処理できないため (authHelper nil panic)、
+#   事前にダウンロードしてパスを書き換えた一時コピーを使う
+#   $(1) = 元のMarkdownファイル
+#   $(2) = 一時Markdownファイル (加工用コピー)
+define localize-images
+	@cp $(1) $(2)
+	@grep -oE '!\[[^]]*\]\(https?://[^)]+\.(png|jpg|jpeg|gif|svg|webp)\)' $(2) 2>/dev/null | \
+	sed -E 's/.*\((https?:\/\/[^)]+)\)/\1/' | sort -u | while read -r url; do \
+		fname=$$(basename "$$url"); \
+		dest="$(OUT_DIR)/img/$$fname"; \
+		if [ ! -f "$$dest" ]; then \
+			echo "⬇️  $$url → $$dest"; \
+			curl -sL -o "$$dest" "$$url"; \
+		fi; \
+		sed -i.bak "s|$${url}|$(OUT_DIR)/img/$${fname}|g" $(2); \
+		rm -f $(2).bak; \
+	done
+endef
+
 # export-codelab: claat export → コピー → 画像パス修正 → 後片付け
 #   $(1) = ソースMarkdown
 #   $(2) = 出力先ディレクトリ
 define export-codelab
-	go tool claat export -o ./$(TEMP_DIR) $(1)
+	$(call localize-images,$(1),.$(notdir $(1)))
+	go tool claat export -o ./$(TEMP_DIR) .$(notdir $(1))
+	$(RM) .$(notdir $(1))
 	mkdir -p $(2)
 	cp $(TEMP_DIR)/$(CODELAB_ID)/index.html $(2)/index.html
 	# -i.bak は macOS (BSD sed) と Linux (GNU sed) の両方で動作するポータブルな書き方
 	sed -i.bak 's|src="img/|src="../../img/|g' $(2)/index.html
+	$(RM) $(2)/index.html.bak
+	# コードブロックにコピーボタンを追加 (</body> の直前にスニペットを挿入)
+	sed -i.bak -e '/<\/body>/{' -e 'r copy-button.html' -e '}' $(2)/index.html
 	$(RM) $(2)/index.html.bak
 	cp -r $(TEMP_DIR)/$(CODELAB_ID)/img/* $(OUT_DIR)/img/ 2>/dev/null || true
 	$(RM) -r $(TEMP_DIR)

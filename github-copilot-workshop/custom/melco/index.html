@@ -1,0 +1,495 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>GitHub Copilot ワークショップ</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="github-copilot-workshop"
+                  title="GitHub Copilot ワークショップ"
+                  environment="web"
+                  feedback-link="https://example.com/feedback">
+    
+      <google-codelab-step label="ワークショップについて" duration="5">
+        <p>GitHub Copilotワークショップへようこそ！このワークショップでは、GitHub Copilot を使ってコードの解説や改善を行う方法を学びます。 GitHub Copilot Chat は Chat 体験を通じて AI との対話を行うことができます。 ぜひ、このワークショップを通じて GitHub Copilot の使い方を学んでみましょう。</p>
+<p class="image-container"><img alt="GitHub Copilot Logo" src="../../img/dcd9c52ce37f5b19.png"></p>
+<h2 is-upgraded>本日のゴール</h2>
+<ul>
+<li>GitHub Copilotの各種機能を理解する</li>
+<li>エージェントモードを使って、新規にアプリケーションを開発する</li>
+</ul>
+<h2 is-upgraded>前提条件</h2>
+<ul>
+<li>GitHub Copilotのライセンスがあること</li>
+<li>GitHubアカウントを持っていること</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="プロジェクトのセットアップ" duration="15">
+        <p>このワークショップでは、以下のGitHub上のテンプレートリポジトリを使用します：</p>
+<p><a href="https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go" target="_blank">https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go</a></p>
+<h2 is-upgraded>ステップ1: テンプレートからリポジトリを作成する</h2>
+<p>まず、上記のテンプレートリポジトリをブラウザで開き、そこから自分のリポジトリを作成します：</p>
+<ol type="1">
+<li>テンプレートリポジトリ（<a href="https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go" target="_blank">https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go</a>）をブラウザで開く</li>
+<li>右上の <strong>Use this template</strong> ボタンをクリックし、<strong>Create a new repository</strong> を選択</li>
+</ol>
+<p class="image-container"><img alt="Use this template ボタンをクリック" src="../../img/66e5879d9f31f170.png"></p>
+<ol type="1" start="3">
+<li>リポジトリ作成画面で、リポジトリ名を入力し <strong>Create repository</strong> ボタンをクリック</li>
+</ol>
+<p class="image-container"><img alt="Create repository ボタンをクリック" src="../../img/c9edec8cdbdd7a7a.png"></p>
+<p>本日利用するオーガニゼーション配下にリポジトリを作成してください。リポジトリ名は <code>workshop-{あなたのユーザー名}</code> などとしてください（例: <code>workshop-johndoe</code>）。</p>
+<p>テンプレートからの作成が完了すると、新しいリポジトリが作成されます。</p>
+<h2 is-upgraded>ステップ2: 開発環境のセットアップ</h2>
+<p>作成したリポジトリを使って、GitHub Codespacesで開発環境を準備します：</p>
+<ol type="1">
+<li>作成したリポジトリのページにアクセス</li>
+<li>緑色の <strong>Code</strong> ボタンをクリック</li>
+<li><strong>Codespaces</strong> タブを選択</li>
+<li><strong>Create codespace on main</strong> をクリック</li>
+</ol>
+<p class="image-container"><img src="../../img/f38e15da794734a5.png"></p>
+<p class="image-container"><img alt="Codespaces Setup" src="../../img/da697969a846a2d4.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ポモドーロタイマーを作ってみよう" duration="30">
+        <p>ここまでで、VS Code上で利用できるGitHub Copilotの基本的な使い方を学びました。次は、実際にアプリケーションを開発してみましょう。</p>
+<p>今回のハンズオンでは、ポモドーロタイマーアプリケーションを開発します。このアプリケーションは、作業時間と休憩時間を設定し、タイマーを管理する機能を持っています。</p>
+<p>以下のようなUIを持つアプリケーションを作成することを目指します。</p>
+<p class="image-container"><img alt="ポモドーロタイマーUI" src="../../img/8e24c2d7e6a91e1b.png"></p>
+<p>今回はWebアプリケーションとして、<code>pomodoro/</code> ディレクトリ配下に実装していきます。サーバーサイドはGoで実装するため、<code>main.go</code> が配置されています。</p>
+<h2 is-upgraded>プロジェクトの概要</h2>
+<p>ポモドーロテクニック用のWebタイマーアプリケーションを作成します。</p>
+<h2 is-upgraded>必要な機能</h2>
+<ul>
+<li>25分の作業タイマー</li>
+<li>5分の休憩タイマー</li>
+<li>タイマーの開始・停止・リセット</li>
+<li>進捗表示と統計機能</li>
+<li>ブラウザ通知とサウンド通知</li>
+<li>レスポンシブなWebUI</li>
+</ul>
+<aside class="special"><p><strong>ポモドーロタイマーとは？</strong>: ポモドーロ・テクニックは、1980年代にフランチェスコ・シリロによって考案された時間管理術です。「25分の作業 + 5分の休憩」を1セット（＝1ポモドーロ）とし、これを繰り返すことで集中力を維持しながら効率的に作業を進める手法です。詳しくは <a href="https://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%A2%E3%83%89%E3%83%BC%E3%83%AD%E3%83%BB%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF" target="_blank">Wikipedia: ポモドーロ・テクニック</a> をご覧ください。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ポモドーロタイマーの設計を考える" duration="10">
+        <p>まず、いきなり実装を始めるのではなく、どういった方針・設計で進めるかをCopilotに相談してみましょう。ここから先は、Agentモードで進めていきます。Copilot Chatには&#34;Agent&#34;, &#34;Ask&#34;, &#34;Plan&#34; という3つのモードがありますが、デフォルトではAgentモードになっています。</p>
+<p class="image-container"><img alt="エージェントモード選択" src="../../img/f8768458a08951e1.png"></p>
+<p>また、LLMの選択については今回は自動的に適したモデルを選択するAutoモードで進めていきます。Autoモードでは、タスクの内容や複雑さに応じて、最適なモデルが自動的に選択されます。</p>
+<p class="image-container"><img src="../../img/d5715629f0c55906.png"></p>
+<aside class="special"><p><strong>Planモード</strong>: 今回のように方針や設計を相談する際にはPlanモードも有効です。Planモードはファイルの変更を一切行わず、ユーザーがCopilotと相談しながら、実装プランを作成します。複雑なタスクを分解し、Agentが順序立てて実装するための計画を立案してくれます。今回は方針をファイルに都度記録しながら進めるため、Agentモードで進めていきますが、Planモードもぜひ試してみてください。</p>
+</aside>
+<h2 is-upgraded>設計の相談</h2>
+<p>今回のようにUIを持ったWebアプリケーションを作成するにあたっては、UIイメージの画像をCopilotにコンテキストとして渡して理解してもらいましょう。</p>
+<p>前ページのUIイメージはリポジトリの <code>pomodoro/pomodoro.png</code> に保存されています。チャット欄の <code>Add Context</code> をクリックし、「Files &amp; Folders...」を選択します。そして、UIイメージの画像を選択しましょう。</p>
+<p class="image-container"><img src="../../img/d09083a073e995a9.png"></p>
+<p class="image-container"><img src="../../img/310fc3fa412e8ff5.png"></p>
+<p>選択ができたら、Chatボックス内にそのファイル名がコンテキスト情報として表示されます。</p>
+<p class="image-container"><img src="../../img/f87752d3d353f7a5.png"></p>
+<aside class="special"><p><strong>他のコンテキスト追加方法</strong>: コンテキスト追加ボタン以外に、ファイルをチャットにドラッグ&amp;ドロップしたり、<code>#</code> プレフィクスをつけてファイル名をチャット入力したりすることでもコンテキストを追加できます。</p>
+</aside>
+<p>その上で、次のプロンプトを入力してみましょう。</p>
+<pre><code>このプロジェクトでポモドーロタイマーのWebアプリを作成する予定です。添付の画像はそのアプリのUIモックです。Goのnet/httpとHTML/CSS/JavaScriptを使用してこのアプリを作成するにあたって、どのような設計で進めるべきか、アーキテクチャの提案をしてください。
+</code></pre>
+<p>すると、推奨のWebアプリケーションアーキテクチャを提案してくれます。</p>
+<p>このアーキテクチャに対して、もっとこうした方が良いという点や考慮不足の点があれば、それを指摘してみましょう。例えば次のような指摘です。</p>
+<pre><code>ユニットテストのしやすさという点を考慮して、今のアーキテクチャにもし改善や追加が必要な点があればそれも書き出してください。
+</code></pre>
+<p>このやり取りを経て、アーキテクチャの設計が固まったら、一度その内容をファイルに保存してもらいましょう。そうすることで、別のチャットセッションを開いても、同じアーキテクチャの内容を参照することができます。</p>
+<pre><code>ここまでの会話でアーキテクチャについては固まったので、これまでの会話の内容を踏まえて、プロジェクトのルートにarchitecture.mdというファイルに、Webアプリケーションアーキテクチャ案をまとめてください。
+</code></pre>
+<aside class="special"><p> Copilot Chatでのやりとりに一区切りがついたら、新しい会話を始めることで、よりCopilotに対して明確な指示を与えることができます。新しい会話を始めるには、チャットウィンドウの上部にある「新しい会話」ボタンをクリックします。その際、今回のアーキテクチャの内容のように、今後のチャットでも参照したい内容は、今回のようにファイルに書き出して保存しておくと便利です。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="やることを洗い出そう" duration="10">
+        <p>ここまでで、UIモックとアーキテクチャの設計が固まりました。具体的にどのような機能を実装する必要があるかを検討していきましょう。これもCopilot Chatに相談してみます。その際、pomodoro.pngとarchitecture.mdを添付しましょう。</p>
+<pre><code>このポモドーロタイマーアプリケーションを作成するにあたって、実装する必要のある機能を洗い出してください。
+</code></pre>
+<p class="image-container"><img alt="機能一覧の検討" src="../../img/8e24c2d7e6a91e1b.png"></p>
+<p class="image-container"><img alt="機能洗い出しの例" src="../../img/20a6ec3e5b2f7c50.png"></p>
+<p>この内容もCopilotとのチャットを通して、改善していきましょう。内容が固まったら、アーキテクチャの時と同様にこの内容も <code>features.md</code> というファイルにまとめて保存しておきましょう。</p>
+<pre><code>ありがとうございます。その内容で良さそうなので、実装する必要のある機能一覧をfeatures.mdというファイルに書いてください。
+</code></pre>
+<p>では、ここから実装を始めるわけですが、Copilotを使いこなすコツとしては、一度に大きな機能を実装しようとするのではなく、まずは小さな機能から実装していくことです。これにより、Copilotが提案するコードの精度が上がり、よりスムーズに開発を進めることができます。</p>
+<p>今回のアプリケーション開発を、どのような粒度で細分化して実装していくかについても、Copilotに相談してみましょう。ここでは、<code>pomodoro.png</code>、<code>architecture.md</code>、<code>features.md</code>を添付しましょう。</p>
+<pre><code>このポモドーロタイマーアプリケーションを段階的に実装していきたいと考えています。  
+添付の画像とアーキテクチャ、機能一覧を踏まえて、どのような粒度で機能を実装していくべきか、段階的な実装計画を提案してください。
+</code></pre>
+<p>私が試したところ、6つのステップからなる計画を提案してくれました。この点についても、もっとこうしてほしいなどがあれば、Copilotに指摘してみましょｋう。そして、この内容も後で参照できるように、<code>plan.md</code> というファイルにまとめて保存しておきましょう。その際、どういうプロンプトで指示するべきかは、みなさん自身で考えてみてください。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="実装しよう" duration="30">
+        <p>ここまでの準備が整ったので、いよいよ実装に取り掛かりましょう。前のステップで提案された実装計画に従って、段階的に機能を実装していきます。</p>
+<h2 is-upgraded>1. ブランチの準備</h2>
+<p>実装を始める前に、作業用のブランチを作成しましょう。 <code>git switch -c feature/pomodoro</code> としても良いのですが、ここではCopilotに作ってもらいましょう。</p>
+<pre><code>実装を進めたいので、作業用のブランチを作成してください。ブランチ名は feature/pomodoro としてください。
+</code></pre>
+<p>すると、Copilotはgitコマンドを使って良いかどうかを尋ねてきます。このように、エージェントが何かのコマンドを実行する前にはユーザーに確認を求めてきます。必要なコマンドを実行することを許可するために「Continue」をクリックします。</p>
+<h2 is-upgraded>2. プロジェクト構成の準備</h2>
+<p>まずは、今回のアーキテクチャに従ったプロジェクトのディレクトリ構成を作成しましょう。</p>
+<p>まずは、<code>architecture.md</code> のようなアーキテクチャを実現するにあたって、現在のプロジェクトのフォルダ構成を修正してください。必要に応じてファイルの移動や、設定ファイルの変更も行ってください。</p>
+<p>その後、<code>pomodoro.png</code>, <code>architecture.md</code>, <code>plan.md</code> を添付した上で、次のようにCopilotに指示を出してみましょう。</p>
+<pre><code>plan.mdのステップ１を実装してください。その際、すでにこのプロジェクトにあるファイルを別のディレクトリに移動する必要があれば、その作業も実行してください。もし追加で考慮が必要なことがあれば、私に質問してください。
+</code></pre>
+<p>すると、私のケースでは以下のように検討が必要な質問をしてきました。こういった場合には、必要な情報を提供しましょう。</p>
+<p class="image-container"><img alt="Copilotからの質問例" src="../../img/8254991301cd47cd.png"></p>
+<p>その後、Copilotは、ステップ1の実装を行います。実装が完了したら、Copilotは自らの判断でプロジェクトのビルドを行い、エラーがないかを確認します。エラーが発生した場合は、そのエラーを解決するために追加で修正を行います。このような自律的な動作が、エージェントモードの特徴です。</p>
+<p>実装が完了したら、以下の点を確認してみましょう：</p>
+<ol type="1">
+<li><strong>ディレクトリ構造</strong>：推奨されたアーキテクチャに沿った構成になっているか</li>
+<li><strong>基本ファイル</strong>：必要な基本ファイル（<code>main.go</code>、HTML テンプレート、CSS ファイルなど）が作成されているか</li>
+<li><strong>動作確認</strong>：簡単な動作テストを行って、エラーが発生していないか</li>
+</ol>
+<p>動作確認環境はCopilotが自動的に開いてくれることもありますが、わからない場合は次のように聞いてみましょう。</p>
+<pre><code>ブラウザで動作確認したいです。
+</code></pre>
+<p>Copilotがlocalhostでアプリケーションを起動してくれます。Codespaces環境ではPort Forwarding機能を使って自動的に動作確認のための一時的なURLを生成してくれます。エディタ下部のアンテナアイコンからFowardingの状況を確認できます。</p>
+<p class="image-container"><img src="../../img/6da23b52a2ef9035.png"></p>
+<p>以下が、私の場合のステップ1の実装結果です。この段階でどのようなアプリケーションになっているかは人によって異なるでしょう。</p>
+<p class="image-container"><img alt="ステップ1実装結果例" src="../../img/99241f822533e37a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="テストを書こう" duration="20">
+        <p>このまま実装を続ける前に、実装した機能に対してユニットテストを書いておきましょう。ユニットテストを書くことで、後のステップでの変更が既存の機能に影響を与えないことを確認できます。</p>
+<p>もし前ページの段階でユニットテストも実装されている場合は、このページは読み飛ばしてください。</p>
+<h2 is-upgraded>テストの実装</h2>
+<p>次のようなプロンプトを実行してみましょう。</p>
+<pre><code>現在の実装に対して、ユニットテストが全くないので、ユニットテストを実装し、実行してください。  
+テストに失敗した場合は、そのエラーを解決するために必要な修正も行ってください。
+</code></pre>
+<p>すると、Copilotがユニットテストのコードを記述して実行・修正までおこなってくれます。Copilotが<code>go test</code>など何かのコマンドを実行する前には、ユーザーに確認を求めてきます。もし、そのコマンドを実行してエラーが発生した場合、エージェントはエラー解決のための修正を自律的に実施します。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="残りの機能をAutopilotで実装しよう" duration="20">
+        <p>残りの機能も同様にステップごとに進めて行けば良いわけですが、残りを一気に実装してみましょう。</p>
+<p>ここでは、ロングタスクを自律的に完遂してくれるAutopilotという機能を使います。VS CodeでAutopilotはpermission levelの選択肢として用意されています。Autopilotでは、Copilot がファイルの作成・編集やコマンドの実行を確認なしで自律的に進めるため、大規模な実装を一気におこなってほしい場面に適しています。</p>
+<p>Copilot ChatのPermission LevelをAutopilotに変更しましょう。デフォルトでは&#34;Default Approvals&#34; となっているところを &#34;Autopilot&#34; に変更します。</p>
+<p class="image-container"><img src="../../img/e009cb85ca11a033.png"></p>
+<p>Autopilotを選択すると、以下のような警告が表示されます。Codespaces上で有効にする分にはリスクも少ないので、&#34;Enable&#34; を選択しましょう。</p>
+<p class="image-container"><img src="../../img/db68abf4282f6932.png"></p>
+<p>設定が終わったら、次のように指示してみましょう。</p>
+<pre><code>plan.mdのフェーズ2以降の内容をすべて実装してください。  
+各ステップでは実装と共にテストコードも作成し、動作を確認した上で次のステップに進んでください。
+</code></pre>
+<p>うまく設定できてれば、Copilotが自律的に実装を進めてくれます。この実装は10分程度かそれ以上かかると予想されるので、休憩してコーヒーでも飲んで待ちましょう。</p>
+<aside class="warning"><p> Autopilotは強力な機能ですが、その分、Copilotがファイルの変更やコマンドの実行をユーザーの確認なしで自律的に行うため、リスクも伴います。プロンプトの与え方が悪いと、思わぬファイルの上書きやコマンドの実行が行われる可能性があるため、特にローカル環境での利用時には注意が必要です。 また、与えた計画の内容が不十分だと期待する実装が得られません。それどころか、堂々巡りになってしまっていつまでも実装が完了せず、無駄にAIクレジットを消費してしまう可能性もあります。 Autopilotを使用する際には、プロンプトの内容や計画の内容を十分に吟味してから指示を出すことが重要です。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="次のタスクに向けた設定確認" duration="20">
+        <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定がされているか確認しましょう。</p>
+<h2 is-upgraded>1. Copilot 機能の有効化</h2>
+<p>GitHubで利用可能なCopilot機能を有効化しましょう。</p>
+<ol type="1">
+<li>GitHubの右上のプロフィールアイコンをクリック</li>
+<li><strong>Copilot settings</strong> を選択</li>
+</ol>
+<p class="image-container"><img alt="Copilot 設定" src="../../img/e0788a8fe3eff510.png"></p>
+<p>以下の機能を有効化してください：</p>
+<ul>
+<li><strong>Editor preview features</strong> - エディタのプレビュー機能</li>
+<li><strong>Copilot code review</strong> - コードレビュー機能</li>
+<li><strong>Copilot Cloud Agent</strong> - 自律的なコーディングエージェント</li>
+</ul>
+<h2 is-upgraded>2. リポジトリの Issues と Actions を有効化</h2>
+<p><strong>⚠️ この手順は、Issues や Actions が無効になっているユーザーのみ対象です。</strong> すでに有効になっている場合はスキップしてください。</p>
+<p>テンプレートから作成したリポジトリでは、デフォルトで Issues と Actions が無効になっている場合があります。後のステップで使用するため、無効になっている方は有効化しておきましょう。</p>
+<h3 is-upgraded>Issues の有効化</h3>
+<ol type="1">
+<li>自分のリポジトリの <strong>Settings</strong> タブをクリック</li>
+<li><strong>General</strong> セクションの <strong>Features</strong> を確認</li>
+<li><strong>Issues</strong> にチェックを入れる</li>
+</ol>
+<h3 is-upgraded>Actions の有効化</h3>
+<ol type="1">
+<li>リポジトリの <strong>Actions</strong> タブをクリック</li>
+<li>「I understand my workflows, go ahead and enable them」をクリックして有効化</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="[コラム] Copilotを使いこなすコツ" duration="10">
+        <p>さて、CopilotがAutopilotで実装を進めている間に、いくつか役に立つであろうポイントをここでは紹介します。</p>
+<h2 is-upgraded>UIに対して指示をしたい場合</h2>
+<p>UI上の特定の要素に対して指示を出したい場合は、UIのスクリーンショットをCopilotにアップロードすることで、その要素を認識させることができます。その際、スクリーンショットの上に特に指摘したい箇所を丸で囲むなり、矢印を引くなりして、どの要素に対して指示を出したいのかを明確にすると良いでしょう。</p>
+<p>または、現状のスクリーンショットと、期待するスクリーンショットを2枚アップロードすることで、その差分を確認してもらい、期待するUIにできるだけ近づくように指示を出すこともできます。</p>
+<h2 is-upgraded>毎回同じような指示を出している場合</h2>
+<p>プロンプトを書いたり、文脈を指定する際に、頻繁に同じような指示を出している場合は、Copilotにその指示を覚えさせることができます。具体的には、プロジェクト内に <code>.github/copilot-instructions.md</code> というファイルを作成し、その中に指示を書いておきます。このファイルがあると、Copilotはその指示を自動的に読み込み、以降のチャットでその指示を参照することができます。</p>
+<p>以下にカスタム指示のサンプルを示します。</p>
+<pre><code language="language-markdown" class="language-markdown">このプロジェクトは、ポモドーロタイマーをFlaskで実装するものです。
+
+以下はプロジェクトの重要なファイルです。ユーザーの指示に対して、必要に応じてこれらのファイルを参照してください。
+ - `pomodoro.png`: アプリケーションのUIモックです。
+ - `architecture.md`: アプリケーションのアーキテクチャドキュメントです。
+ - `features.md`: 実装する機能の一覧です。
+ - `plan.md`: 段階的な実装計画です。
+</code></pre>
+<p>そのほかにも、プロジェクトをビルドするコマンドやテストを実行するコマンドなど、プロジェクトに特有のコマンドを記載しておくと、Copilotはそのコマンドを自動的に使用するようになります。</p>
+<h2 is-upgraded>なかなか実装が進まなかったり、バグを解決できない場合</h2>
+<p>このような場合には、以下のアプローチを試してみましょう。</p>
+<ul>
+<li>デバッグ情報を出力するように指示し、その出力をCopilotに分析させる。</li>
+<li>他のモデルを試してみる。</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="コミットしてGitHubにPushしよう" duration="10">
+        <p>さて、後半は主にGitHub.com上のCopilot機能を使用していきます。まずは、作成したコードをGitリポジトリにコミットしてリモートブランチにPushしましょう。ここでは2つの方法を紹介します。</p>
+<h2 is-upgraded>方法A: ターミナルでコマンドを使用</h2>
+<p>従来の方法として、ターミナルでGitコマンドを直接実行する方法です：</p>
+<pre><code>git add .
+git commit -m &#34;ポモドーロタイマー機能を追加&#34;
+git push origin feature/pomodoro
+</code></pre>
+<h2 is-upgraded>方法B: Copilotによるコミットの作成</h2>
+<p>エージェントモードでCopilotに直接指示してコミットとPushを行います。以下のプロンプトを実行してください：</p>
+<pre><code>機能の作成が完了したので、コードの差分をgitのステージングにあげてください。  
+その後、適切なコミットメッセージでコミットいただき、リモートブランチに変更をPushしてください。
+</code></pre>
+<p class="image-container"><img alt="MCP による Git ワークフロー" src="../../img/26ebf645a750b3a6.png"></p>
+<h3 is-upgraded>【オプション】MCP サーバーによる GitHub Issues の自動起票</h3>
+<p>続いて、MCP サーバーを使用して実装計画をGitHub Issuesとして管理することもできます。</p>
+<aside class="warning"><p><strong>注意</strong>: GitHub MCP サーバーが有効化されていない場合は、<code>.vscode/mcp.json</code> ファイル内から MCP サーバーを起動してください：</p>
+<pre><code language="language-json" class="language-json">{
+  &#34;servers&#34;: {
+    &#34;github-mcp-server&#34;: {
+      &#34;type&#34;: &#34;http&#34;,
+      &#34;url&#34;: &#34;https://api.githubcopilot.com/mcp/&#34;
+    }
+  }
+}
+</code></pre>
+</aside>
+<pre><code>plan.mdの各ステップをGitHub issuesとして起票してください
+</code></pre>
+<p>この指示により、Copilotは以下を実行します：</p>
+<ol type="1">
+<li><code>plan.md</code> の内容を読み取り</li>
+<li>各ステップを個別のIssueとして起票</li>
+<li>各Issueには以下が含まれます： <ul>
+<li>ステップのタイトルと詳細説明</li>
+<li>実装すべき機能の要件</li>
+<li>受け入れ条件</li>
+<li>適切なラベルと優先度</li>
+</ul>
+</li>
+</ol>
+<p>これにより、計画的なプロジェクト管理とアジャイル開発が可能になります。</p>
+<p class="image-container"><img alt="MCP Issues" src="../../img/b03e6ea597ff6ae3.png"></p>
+<aside class="special"><p><strong>MCP の利点</strong>: GitHub MCPサーバーを使用することで、Copilotがリポジトリの情報、Issues、Pull Requests、ブランチ情報などのGitHubメタデータに直接アクセスし、より詳細な分析や提案を行うことができます。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pull requestの作成とsummaryの生成" duration="0">
+        <p>Pushした後の内容について、GitHub.com上でPull Requestを作成しましょう。その際、CopilotにPull Requestの概要を生成してもらいましょう。</p>
+<ol type="1">
+<li>GitHub上で自分のリポジトリにアクセス</li>
+<li><strong>Open a pull request</strong> をクリック</li>
+<li>Pull Request作成画面で、<strong>Copilotのアイコン</strong> » <strong>Summary</strong> をクリック</li>
+</ol>
+<p class="image-container"><img alt="Pull RequestでのCopilot Summary" src="../../img/f379c36d2daae6be.png"></p>
+<p>Copilotが自動的にPull Requestの概要を生成してくれます。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Copilot Code Review" duration="15">
+        <p>Pull Request上で、Copilotのコードレビュー機能を活用してみましょう。</p>
+<h2 is-upgraded>Copilotをレビュワーとしてアサイン</h2>
+<p><strong>Reviewers</strong> セクションで <strong>Copilot</strong> をアサインすることで、Copilotをレビュワーとしてアサインし、コードのレビューを依頼できます。</p>
+<aside class="special"><p><strong>自動アサインの設定</strong>: Settings » Branches » Rulesets » Require a pull request before merging » Automatically request Copilot code reviewにチェックを入れることで、Pull Requestを開いた時、自動的にCopilotがアサインされるようになります。</p>
+</aside>
+<p class="image-container"><img alt="Copilot自動アサインの設定" src="../../img/bc9c16ab7a83d165.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
+        <p>Copilot Code Reviewは少し時間がかかるので、待っている間にCopilot Cloud Agentに別の修正を依頼しましょう。Pull Requestのコメントで <code>@copilot</code> とメンションしながら修正依頼を指示することで、Copilot Cloud AgentがGitHubのクラウド上で動作してコードの修正を行い、Pull Requestに追加コミットしてくれます。</p>
+<p>前半ではCopilotにテストコードは作成してもらいましたが、それをGitHub上のGitHub Actionsで動かせるようにはしていなかったため、そのためのワークフローを追加してもらい、CIを回せるようにしてみましょう。次のようにコメントしてみてください。</p>
+<pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
+</code></pre>
+<p class="image-container"><img src="../../img/f7251026e70628f1.png"></p>
+<p>Copilotがコメントに 👀 で反応し、Cloud Agentのセッションが起動してコードの修正を行い、Pull Requestにコミットしてくれます。</p>
+<p class="image-container"><img src="../../img/9b4de77bc70de77d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Copilot Code Reviewの結果確認と追加変更" duration="0">
+        <p>Copilot Code Reviewの結果を閲覧しましょう。Copilotは以下のようなコメントを残してくれます。</p>
+<ul>
+<li><strong>Pull Requestのオーバービュー</strong>: コードの変更内容の要約</li>
+<li><strong>指摘事項</strong>: 潜在的な問題点の指摘</li>
+<li><strong>改善提案</strong>: コードの品質向上のための具体的な提案</li>
+</ul>
+<p class="image-container"><img src="../../img/a7f621eebefc2e96.png"></p>
+<p>単純な修正であればコメント上に &#34;Suggested changeset&#34; として提案されるので、&#34;Commit suggestion&#34; をクリックして修正と取り込めます。複雑な変更の場合でも &#34;Fix with Copilot&#34; をクリックすれば、Cloud Agentのセッションが起動して自動的にコードの修正を行い、変更をPull Requestにコミットしてくれます。</p>
+<p>必要な修正を取り込んで、テストがすべてパスしたら、Pull Requestをマージしましょう。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Copilot Cloud Agentによる追加機能開発 (オプション)" duration="20">
+        <p>GitHub CopilotのWebサイト版を使用して、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+<h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
+<ol type="1">
+<li><strong>GitHub.com</strong> にアクセスし、右上の <strong>Copilot</strong> アイコンをクリック</li>
+<li>Chatのコンテキストに自身のリポジトリが追加されていることを確認</li>
+<li>以下のプロンプトを入力します：</li>
+</ol>
+<pre><code>ポモドーロタイマーのカスタマイズを行うために３つのissueを起票してください。
+
+パターンA: 視覚的フィードバックの強化
+
+円形プログレスバーのアニメーション: 残り時間に応じて滑らかに減少するアニメーション
+色の変化: 時間経過に応じて青→黄→赤にグラデーション変化
+背景エフェクト: 集中時間中は背景にパーティクルエフェクトや波紋アニメーション
+テスト目的: 視覚的な没入感がユーザーの集中力に与える影響を測定
+
+パターンB: カスタマイズ性の向上
+
+時間設定の柔軟化: 25分固定ではなく、15/25/35/45分から選択可能
+テーマ切り替え: ダーク/ライト/フォーカスモード（ミニマル）
+サウンド設定: 開始音/終了音/tick音のオン/オフ切り替え
+休憩時間カスタム: 5/10/15分から選択
+テスト目的: 個人の好みに合わせた設定がユーザー継続率に与える影響を測定
+
+パターンC: ゲーミフィケーション要素の追加
+
+経験値システム: 完了したポモドーロに応じてXPとレベルアップ
+達成バッジ: 「3日連続」「今週10回完了」などの実績システム
+週間/月間統計: より詳細なグラフ表示（完了率、平均集中時間など）
+ストリーク表示: 連続日数のカウント表示
+テスト目的: ゲーミフィケーション要素がモチベーション維持と継続利用に与える影響を測定
+</code></pre>
+<p class="image-container"><img alt="GitHub Copilotでのissue作成" src="../../img/a69389a1032d0aab.png"></p>
+<h2 is-upgraded>Issueの作成とCloud Agentのアサイン</h2>
+<ol type="1">
+<li><strong>Copilotが3つのIssueを自動生成</strong>します</li>
+<li>各Issueの内容を確認し、必要に応じて編集</li>
+<li><strong>Create</strong> ボタンをクリックして各Issueを作成</li>
+<li>Issue画面に遷移後、<strong>Assignees</strong> セクションで <strong>Copilot</strong> を選択してCloud Agentをアサイン</li>
+</ol>
+<p class="image-container"><img alt="Cloud AgentをIssueにアサイン" src="../../img/14fa8fd6031e20b8.png"></p>
+<h2 is-upgraded>期待されるPull Requestの結果</h2>
+<p>Cloud Agentがアサインされると、以下のような結果が期待できます：</p>
+<ul>
+<li><strong>自動的なコード実装</strong>: 各Issueの要件に基づいた機能実装</li>
+<li><strong>Pull Requestの作成</strong>: 実装完了後の自動PR作成</li>
+<li><strong>包括的なテスト</strong>: 単体テストとUIテストの両方を含む</li>
+</ul>
+<h3 is-upgraded>パターンA: 視覚的フィードバックの強化</h3>
+<p class="image-container"><img alt="視覚的フィードバック強化のPR結果" src="../../img/705e39500bad3885.png"></p>
+<h3 is-upgraded>パターンB: カスタマイズ性の向上</h3>
+<p class="image-container"><img alt="カスタマイズ性向上のPR結果" src="../../img/8184bbbafbf918ee.png"></p>
+<h3 is-upgraded>パターンC: ゲーミフィケーション要素の追加</h3>
+<p class="image-container"><img alt="ゲーミフィケーション要素のPR結果" src="../../img/3e0271a144640fba.png"></p>
+<aside class="special"><p><strong>MCP Serverの活用</strong>: GitHub MCP ServerとPlaywright MCP Serverが初期設定としてCloud Agentに含まれています。これにより、単体テストだけではなく、スクリーンショットによるUIの自動チェックも行うことができます。Cloud Agentは実装した機能が期待通りに動作するかを視覚的に検証し、より品質の高いコードを提供します。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="おめでとうございます 🎉" duration="5">
+        <h2 is-upgraded>今日学んだこと</h2>
+<p>このワークショップでは以下のことを学びました：</p>
+<ol type="1">
+<li><strong>GitHub Copilot の基本的な使い方</strong></li>
+<li><strong>エージェントモードでのコードの解説・改善</strong></li>
+<li><strong>AI をコントロールしながら実装するスペック駆動開発</strong></li>
+<li><strong>強力なモデルとツールを用いた AI 駆動開発</strong></li>
+</ol>
+<h2 is-upgraded>次のステップ</h2>
+<ul>
+<li>実際のプロジェクトでCopilotを活用してみる</li>
+<li>より複雑なアプリケーション開発に挑戦する</li>
+<li>Copilotの新機能をキャッチアップする</li>
+</ul>
+<h2 is-upgraded>リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot" target="_blank">GitHub Copilot Documentation</a></li>
+<li><a href="https://docs.github.com/copilot/using-github-copilot/best-practices-for-using-github-copilot" target="_blank">GitHub Copilot ベストプラクティス</a></li>
+</ul>
+<p>お疲れさまでした！</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+<style>
+.code-wrapper{position:relative}
+.code-wrapper .copy-btn{position:absolute;top:4px;right:4px;
+padding:4px 8px;font-size:12px;background:#f5f5f5;border:1px solid #ddd;
+border-radius:4px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:1}
+.code-wrapper:hover .copy-btn{opacity:1}
+.copy-btn:hover{background:#e0e0e0}
+</style>
+<script>
+document.querySelectorAll("pre code").forEach(function(b){
+  var pre=b.parentElement,wrap=document.createElement("div");
+  wrap.className="code-wrapper";
+  pre.parentNode.insertBefore(wrap, pre);
+  wrap.appendChild(pre);
+  var btn=document.createElement("button");
+  btn.className="copy-btn";btn.textContent="Copy";
+  btn.addEventListener("click",function(){
+    navigator.clipboard.writeText(b.textContent).then(function(){
+      btn.textContent="Copied!";
+      setTimeout(function(){btn.textContent="Copy"},1500);
+    });
+  });
+  wrap.appendChild(btn);
+});
+</script>
+</html>
