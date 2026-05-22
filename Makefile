@@ -36,6 +36,9 @@ define export-codelab
 	# -i.bak は macOS (BSD sed) と Linux (GNU sed) の両方で動作するポータブルな書き方
 	sed -i.bak 's|src="img/|src="../../img/|g' $(2)/index.html
 	$(RM) $(2)/index.html.bak
+	# コードブロックにコピーボタンを追加 (</body> の直前にスニペットを挿入)
+	sed -i.bak -e '/<\/body>/{' -e 'r copy-button.html' -e '}' $(2)/index.html
+	$(RM) $(2)/index.html.bak
 	cp -r $(TEMP_DIR)/$(CODELAB_ID)/img/* $(OUT_DIR)/img/ 2>/dev/null || true
 	$(RM) -r $(TEMP_DIR)
 endef
