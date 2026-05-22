@@ -141,7 +141,8 @@
 </code></pre>
 <p>では、ここから実装を始めるわけですが、Copilotを使いこなすコツとしては、一度に大きな機能を実装しようとするのではなく、まずは小さな機能から実装していくことです。これにより、Copilotが提案するコードの精度が上がり、よりスムーズに開発を進めることができます。</p>
 <p>今回のアプリケーション開発を、どのような粒度で細分化して実装していくかについても、Copilotに相談してみましょう。ここでは、<code>pomodoro.png</code>、<code>architecture.md</code>、<code>features.md</code>を添付しましょう。</p>
-<pre><code>このポモドーロタイマーアプリケーションを段階的に実装していきたいと考えています。添付の画像とアーキテクチャ、機能一覧を踏まえて、どのような粒度で機能を実装していくべきか、段階的な実装計画を提案してください。
+<pre><code>このポモドーロタイマーアプリケーションを段階的に実装していきたいと考えています。  
+添付の画像とアーキテクチャ、機能一覧を踏まえて、どのような粒度で機能を実装していくべきか、段階的な実装計画を提案してください。
 </code></pre>
 <p>私が試したところ、6つのステップからなる計画を提案してくれました。この点についても、もっとこうしてほしいなどがあれば、Copilotに指摘してみましょｋう。そして、この内容も後で参照できるように、<code>plan.md</code> というファイルにまとめて保存しておきましょう。その際、どういうプロンプトで指示するべきかは、みなさん自身で考えてみてください。</p>
 
@@ -186,7 +187,8 @@
 <p>もし前ページの段階でユニットテストも実装されている場合は、このページは読み飛ばしてください。</p>
 <h2 is-upgraded>テストの実装</h2>
 <p>次のようなプロンプトを実行してみましょう。</p>
-<pre><code>現在の実装に対して、ユニットテストが全くないので、ユニットテストを実装し、実行してください。テストに失敗した場合は、そのエラーを解決するために、必要な修正も行ってください。
+<pre><code>現在の実装に対して、ユニットテストが全くないので、ユニットテストを実装し、実行してください。  
+テストに失敗した場合は、そのエラーを解決するために必要な修正も行ってください。
 </code></pre>
 <p>すると、Copilotがユニットテストのコードを記述して実行・修正までおこなってくれます。Copilotが<code>go test</code>など何かのコマンドを実行する前には、ユーザーに確認を求めてきます。もし、そのコマンドを実行してエラーが発生した場合、エージェントはエラー解決のための修正を自律的に実施します。</p>
 
@@ -201,17 +203,18 @@
 <p>Autopilotを選択すると、以下のような警告が表示されます。Codespaces上で有効にする分にはリスクも少ないので、&#34;Enable&#34; を選択しましょう。</p>
 <p class="image-container"><img src="../../img/db68abf4282f6932.png"></p>
 <p>設定が終わったら、次のように指示してみましょう。</p>
-<pre><code>plan.mdのフェーズ2以降の内容をすべて実装してください。各ステップでは実装と共にテストコードも作成し、動作を確認した上で次のステップに進んでください。
+<pre><code>plan.mdのフェーズ2以降の内容をすべて実装してください。  
+各ステップでは実装と共にテストコードも作成し、動作を確認した上で次のステップに進んでください。
 </code></pre>
-<p>うまく設定できてれば、Copilotが自律的に実装を進めてくれます。この実装は10分程度かそれ以上かかると予想されるので、席を外してコーヒーを飲んできても良いでしょう。</p>
+<p>うまく設定できてれば、Copilotが自律的に実装を進めてくれます。この実装は10分程度かそれ以上かかると予想されるので、休憩してコーヒーでも飲んで待ちましょう。</p>
 <aside class="warning"><p> Autopilotは強力な機能ですが、その分、Copilotがファイルの変更やコマンドの実行をユーザーの確認なしで自律的に行うため、リスクも伴います。プロンプトの与え方が悪いと、思わぬファイルの上書きやコマンドの実行が行われる可能性があるため、特にローカル環境での利用時には注意が必要です。 また、与えた計画の内容が不十分だと期待する実装が得られません。それどころか、堂々巡りになってしまっていつまでも実装が完了せず、無駄にAIクレジットを消費してしまう可能性もあります。 Autopilotを使用する際には、プロンプトの内容や計画の内容を十分に吟味してから指示を出すことが重要です。</p>
 </aside>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="次のタスクに向けた設定" duration="20">
-        <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定を行いましょう。</p>
+      <google-codelab-step label="次のタスクに向けた設定確認" duration="20">
+        <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定がされているか確認しましょう。</p>
 <h2 is-upgraded>1. Copilot 機能の有効化</h2>
 <p>GitHubで利用可能なCopilot機能を有効化しましょう。</p>
 <ol type="1">
@@ -244,7 +247,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="[コラム] Copilotを使いこなすコツ" duration="10">
-        <p>いくつか役に立つであろうポイントをここでは紹介します。</p>
+        <p>さて、CopilotがAutopilotで実装を進めている間に、いくつか役に立つであろうポイントをここでは紹介します。</p>
 <h2 is-upgraded>UIに対して指示をしたい場合</h2>
 <p>UI上の特定の要素に対して指示を出したい場合は、UIのスクリーンショットをCopilotにアップロードすることで、その要素を認識させることができます。その際、スクリーンショットの上に特に指摘したい箇所を丸で囲むなり、矢印を引くなりして、どの要素に対して指示を出したいのかを明確にすると良いでしょう。</p>
 <p>または、現状のスクリーンショットと、期待するスクリーンショットを2枚アップロードすることで、その差分を確認してもらい、期待するUIにできるだけ近づくように指示を出すこともできます。</p>
@@ -270,18 +273,17 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] コミットしてGitHubにPushしよう" duration="10">
-        <p>作成したコードをGitリポジトリにコミットしてリモートブランチにPushしましょう。ここでは2つの方法を紹介します。</p>
+      <google-codelab-step label="コミットしてGitHubにPushしよう" duration="10">
+        <p>さて、後半は主にGitHub.com上のCopilot機能を使用していきます。まずは、作成したコードをGitリポジトリにコミットしてリモートブランチにPushしましょう。ここでは2つの方法を紹介します。</p>
 <h2 is-upgraded>方法A: ターミナルでコマンドを使用</h2>
 <p>従来の方法として、ターミナルでGitコマンドを直接実行する方法です：</p>
 <pre><code>git add .
 git commit -m &#34;ポモドーロタイマー機能を追加&#34;
 git push origin feature/pomodoro
 </code></pre>
-<h2 is-upgraded>方法B: 生成AIによるコミットの作成</h2>
+<h2 is-upgraded>方法B: Copilotによるコミットの作成</h2>
 <p>エージェントモードでCopilotに直接指示してコミットとPushを行います。以下のプロンプトを実行してください：</p>
-<pre><code>機能の作成が完了したので、コードの差分をgitのステージングにあげてください。
-
+<pre><code>機能の作成が完了したので、コードの差分をgitのステージングにあげてください。  
 その後、適切なコミットメッセージでコミットいただき、リモートブランチに変更をPushしてください。
 </code></pre>
 <p class="image-container"><img alt="MCP による Git ワークフロー" src="../../img/26ebf645a750b3a6.png"></p>
@@ -320,7 +322,7 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] Creating a pull request summary with GitHub Copilot" duration="0">
+      <google-codelab-step label="Pull requestの作成とsummaryの生成" duration="0">
         <p>Pushした後の内容について、GitHub.com上でPull Requestを作成しましょう。その際、CopilotにPull Requestの概要を生成してもらいましょう。</p>
 <ol type="1">
 <li>GitHub上で自分のリポジトリにアクセス</li>
@@ -333,7 +335,7 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] Copilot Code Review" duration="15">
+      <google-codelab-step label="Copilot Code Review" duration="15">
         <p>Pull Request上で、Copilotのコードレビュー機能を活用してみましょう。</p>
 <h2 is-upgraded>Copilotをレビュワーとしてアサイン</h2>
 <p><strong>Reviewers</strong> セクションで <strong>Copilot</strong> をアサインすることで、Copilotをレビュワーとしてアサインし、コードのレビューを依頼できます。</p>
@@ -344,28 +346,33 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
-        <pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
+      <google-codelab-step label="Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
+        <p>Copilot Code Reviewは少し時間がかかるので、待っている間にCopilot Cloud Agentに別の修正を依頼しましょう。Pull Requestのコメントで <code>@copilot</code> とメンションしながら修正依頼を指示することで、Copilot Cloud AgentがGitHubのクラウド上で動作してコードの修正を行い、Pull Requestに追加コミットしてくれます。</p>
+<p>前半ではCopilotにテストコードは作成してもらいましたが、それをGitHub上のGitHub Actionsで動かせるようにはしていなかったため、そのためのワークフローを追加してもらい、CIを回せるようにしてみましょう。次のようにコメントしてみてください。</p>
+<pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
 </code></pre>
 <p class="image-container"><img src="../../img/f7251026e70628f1.png"></p>
+<p>Copilotがコメントに 👀 で反応し、Cloud Agentのセッションが起動してコードの修正を行い、Pull Requestにコミットしてくれます。</p>
 <p class="image-container"><img src="../../img/9b4de77bc70de77d.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Copilot Code Reviewの結果確認と追加変更" duration="0">
-        <p>Pull Requestが開かれた後、Copilot Code Reviewの結果を閲覧できます：</p>
+        <p>Copilot Code Reviewの結果を閲覧しましょう。Copilotは以下のようなコメントを残してくれます。</p>
 <ul>
 <li><strong>Pull Requestのオーバービュー</strong>: コードの変更内容の要約</li>
 <li><strong>指摘事項</strong>: 潜在的な問題点の指摘</li>
 <li><strong>改善提案</strong>: コードの品質向上のための具体的な提案</li>
 </ul>
 <p class="image-container"><img src="../../img/a7f621eebefc2e96.png"></p>
+<p>単純な修正であればコメント上に &#34;Suggested changeset&#34; として提案されるので、&#34;Commit suggestion&#34; をクリックして修正と取り込めます。複雑な変更の場合でも &#34;Fix with Copilot&#34; をクリックすれば、Cloud Agentのセッションが起動して自動的にコードの修正を行い、変更をPull Requestにコミットしてくれます。</p>
+<p>必要な修正を取り込んで、テストがすべてパスしたら、Pull Requestをマージしましょう。</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] Copilot Cloud Agent (オプション)" duration="20">
+      <google-codelab-step label="Copilot Cloud Agentによる追加機能開発 (オプション)" duration="20">
         <p>GitHub CopilotのWebサイト版を使用して、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
 <h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
 <ol type="1">
@@ -461,16 +468,20 @@ git push origin feature/pomodoro
 
 </body>
 <style>
-pre{position:relative}
-pre .copy-btn{position:absolute;top:4px;right:4px;padding:4px 8px;font-size:12px;
-background:#f5f5f5;border:1px solid #ddd;border-radius:4px;cursor:pointer;
-opacity:0;transition:opacity .2s}
-pre:hover .copy-btn{opacity:1}
+.code-wrapper{position:relative}
+.code-wrapper .copy-btn{position:absolute;top:4px;right:4px;
+padding:4px 8px;font-size:12px;background:#f5f5f5;border:1px solid #ddd;
+border-radius:4px;cursor:pointer;opacity:0;transition:opacity .2s;z-index:1}
+.code-wrapper:hover .copy-btn{opacity:1}
 .copy-btn:hover{background:#e0e0e0}
 </style>
 <script>
 document.querySelectorAll("pre code").forEach(function(b){
-  var p=b.parentElement,btn=document.createElement("button");
+  var pre=b.parentElement,wrap=document.createElement("div");
+  wrap.className="code-wrapper";
+  pre.parentNode.insertBefore(wrap, pre);
+  wrap.appendChild(pre);
+  var btn=document.createElement("button");
   btn.className="copy-btn";btn.textContent="Copy";
   btn.addEventListener("click",function(){
     navigator.clipboard.writeText(b.textContent).then(function(){
@@ -478,7 +489,7 @@ document.querySelectorAll("pre code").forEach(function(b){
       setTimeout(function(){btn.textContent="Copy"},1500);
     });
   });
-  p.appendChild(btn);
+  wrap.appendChild(btn);
 });
 </script>
 </html>
