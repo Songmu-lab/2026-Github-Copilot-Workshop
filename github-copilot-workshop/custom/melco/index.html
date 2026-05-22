@@ -46,12 +46,12 @@
       </google-codelab-step>
     
       <google-codelab-step label="プロジェクトのセットアップ" duration="15">
-        <p>このワークショップでは、以下のGitHubリポジトリを使用します：</p>
-<p><strong>プロジェクトURL</strong>: (<a href="https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go" target="_blank">https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go</a>)</p>
+        <p>このワークショップでは、以下のGitHub上のテンプレートリポジトリを使用します：</p>
+<p><a href="https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go" target="_blank">https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go</a></p>
 <h2 is-upgraded>ステップ1: テンプレートからリポジトリを作成する</h2>
-<p>まず、上記のプロジェクトURLをブラウザで開き、テンプレートから自分のリポジトリを作成します：</p>
+<p>まず、上記のテンプレートリポジトリをブラウザで開き、そこから自分のリポジトリを作成します：</p>
 <ol type="1">
-<li>プロジェクトURL（https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go）をブラウザで開く</li>
+<li>テンプレートリポジトリ（<a href="https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go" target="_blank">https://github.com/Songmu-lab/2026-Github-Copilot-Workshop-Go</a>）をブラウザで開く</li>
 <li>右上の <strong>Use this template</strong> ボタンをクリックし、<strong>Create a new repository</strong> を選択</li>
 </ol>
 <p class="image-container"><img alt="Use this template ボタンをクリック" src="../../img/66e5879d9f31f170.png"></p>
@@ -193,6 +193,23 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="残りの機能をAutopilotで実装しよう" duration="20">
+        <p>残りの機能も同様にステップごとに進めて行けば良いわけですが、残りを一気に実装してみましょう。</p>
+<p>ここでは、ロングタスクを自律的に完遂してくれるAutopilotという機能を使います。VS CodeでAutopilotはpermission levelの選択肢として用意されています。Autopilotでは、Copilot がファイルの作成・編集やコマンドの実行を確認なしで自律的に進めるため、大規模な実装を一気におこなってほしい場面に適しています。</p>
+<p>Copilot ChatのPermission LevelをAutopilotに変更しましょう。デフォルトでは&#34;Default Approvals&#34; となっているところを &#34;Autopilot&#34; に変更します。</p>
+<p class="image-container"><img src="../../img/e009cb85ca11a033.png"></p>
+<p>Autopilotを選択すると、以下のような警告が表示されます。Codespaces上で有効にする分にはリスクも少ないので、&#34;Enable&#34; を選択しましょう。</p>
+<p class="image-container"><img src="../../img/db68abf4282f6932.png"></p>
+<p>設定が終わったら、次のように指示してみましょう。</p>
+<pre><code>plan.mdのフェーズ2以降の内容をすべて実装してください。各ステップでは実装と共にテストコードも作成し、動作を確認した上で次のステップに進んでください。
+</code></pre>
+<p>うまく設定できてれば、Copilotが自律的に実装を進めてくれます。この実装は10分程度かそれ以上かかると予想されるので、席を外してコーヒーを飲んできても良いでしょう。</p>
+<aside class="warning"><p> Autopilotは強力な機能ですが、その分、Copilotがファイルの変更やコマンドの実行をユーザーの確認なしで自律的に行うため、リスクも伴います。プロンプトの与え方が悪いと、思わぬファイルの上書きやコマンドの実行が行われる可能性があるため、特にローカル環境での利用時には注意が必要です。 また、与えた計画の内容が不十分だと期待する実装が得られません。それどころか、堂々巡りになってしまっていつまでも実装が完了せず、無駄にAIクレジットを消費してしまう可能性もあります。 Autopilotを使用する際には、プロンプトの内容や計画の内容を十分に吟味してから指示を出すことが重要です。</p>
+</aside>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="次のタスクに向けた設定" duration="20">
         <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定を行いましょう。</p>
 <h2 is-upgraded>1. Copilot 機能の有効化</h2>
@@ -226,11 +243,8 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="残りの機能を実装しよう（オプション）" duration="20">
-        <p><strong>Shift+Tab</strong> を押して、Copilot CLI を <strong>Autopilot モード</strong> に切り替えてください。Autopilot モードでは、Copilot がファイルの作成・編集やコマンドの実行を確認なしで自律的に進めるため、大規模な実装を一気に行う Vibe Coding に最適です。</p>
-<p>このセクションは <strong>オプション</strong> です。基本的なCopilot機能を学習済みの方で、より高度な実装に挑戦したい場合に実施してください。</p>
-<p>ここからは、自由課題として、残りの機能を段階的に実装していきましょう。</p>
-<p>いくつか役に立つであろうポイントをここでは紹介します。</p>
+      <google-codelab-step label="[コラム] Copilotを使いこなすコツ" duration="10">
+        <p>いくつか役に立つであろうポイントをここでは紹介します。</p>
 <h2 is-upgraded>UIに対して指示をしたい場合</h2>
 <p>UI上の特定の要素に対して指示を出したい場合は、UIのスクリーンショットをCopilotにアップロードすることで、その要素を認識させることができます。その際、スクリーンショットの上に特に指摘したい箇所を丸で囲むなり、矢印を引くなりして、どの要素に対して指示を出したいのかを明確にすると良いでしょう。</p>
 <p>または、現状のスクリーンショットと、期待するスクリーンショットを2枚アップロードすることで、その差分を確認してもらい、期待するUIにできるだけ近づくように指示を出すこともできます。</p>
@@ -256,7 +270,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="GitにコミットしてPushしよう" duration="10">
+      <google-codelab-step label="[GitHub.com] コミットしてGitHubにPushしよう" duration="10">
         <p>作成したコードをGitリポジトリにコミットしてリモートブランチにPushしましょう。ここでは2つの方法を紹介します。</p>
 <h2 is-upgraded>方法A: ターミナルでコマンドを使用</h2>
 <p>従来の方法として、ターミナルでGitコマンドを直接実行する方法です：</p>
@@ -306,9 +320,8 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="[GitHub.com] Copilot Code Review" duration="15">
-        <p>Pushした後の内容をGitHub.com上でPull Requestを立てて、Copilotのコードレビュー機能を活用しましょう。</p>
-<h2 is-upgraded>Pull Requestの作成とCopilot Summary</h2>
+      <google-codelab-step label="[GitHub.com] Creating a pull request summary with GitHub Copilot" duration="0">
+        <p>Pushした後の内容について、GitHub.com上でPull Requestを作成しましょう。その際、CopilotにPull Requestの概要を生成してもらいましょう。</p>
 <ol type="1">
 <li>GitHub上で自分のリポジトリにアクセス</li>
 <li><strong>Open a pull request</strong> をクリック</li>
@@ -316,19 +329,99 @@ git push origin feature/pomodoro
 </ol>
 <p class="image-container"><img alt="Pull RequestでのCopilot Summary" src="../../img/f379c36d2daae6be.png"></p>
 <p>Copilotが自動的にPull Requestの概要を生成してくれます。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="[GitHub.com] Copilot Code Review" duration="15">
+        <p>Pull Request上で、Copilotのコードレビュー機能を活用してみましょう。</p>
 <h2 is-upgraded>Copilotをレビュワーとしてアサイン</h2>
 <p><strong>Reviewers</strong> セクションで <strong>Copilot</strong> をアサインすることで、Copilotをレビュワーとしてアサインし、コードのレビューを依頼できます。</p>
 <aside class="special"><p><strong>自動アサインの設定</strong>: Settings » Branches » Rulesets » Require a pull request before merging » Automatically request Copilot code reviewにチェックを入れることで、Pull Requestを開いた時、自動的にCopilotがアサインされるようになります。</p>
 </aside>
 <p class="image-container"><img alt="Copilot自動アサインの設定" src="../../img/bc9c16ab7a83d165.png"></p>
-<h2 is-upgraded>Copilot Code Reviewの結果確認</h2>
-<p>Pull Requestが開かれた後、Copilot Code Reviewの結果を閲覧できます：</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="[GitHub.com] Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
+        <pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
+</code></pre>
+<p class="image-container"><img src="../../img/f7251026e70628f1.png"></p>
+<p class="image-container"><img src="../../img/9b4de77bc70de77d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Copilot Code Reviewの結果確認と追加変更" duration="0">
+        <p>Pull Requestが開かれた後、Copilot Code Reviewの結果を閲覧できます：</p>
 <ul>
 <li><strong>Pull Requestのオーバービュー</strong>: コードの変更内容の要約</li>
 <li><strong>指摘事項</strong>: 潜在的な問題点の指摘</li>
 <li><strong>改善提案</strong>: コードの品質向上のための具体的な提案</li>
 </ul>
-<p class="image-container"><img alt="Copilot Code Reviewの概要" src="../../img/190eae2847f8b194.png"></p>
+<p class="image-container"><img src="../../img/a7f621eebefc2e96.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="[GitHub.com] Copilot Cloud Agent (オプション)" duration="20">
+        <p>GitHub CopilotのWebサイト版を使用して、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+<h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
+<ol type="1">
+<li><strong>GitHub.com</strong> にアクセスし、右上の <strong>Copilot</strong> アイコンをクリック</li>
+<li>Chatのコンテキストに自身のリポジトリが追加されていることを確認</li>
+<li>以下のプロンプトを入力します：</li>
+</ol>
+<pre><code>ポモドーロタイマーのカスタマイズを行うために３つのissueを起票してください。
+
+パターンA: 視覚的フィードバックの強化
+
+円形プログレスバーのアニメーション: 残り時間に応じて滑らかに減少するアニメーション
+色の変化: 時間経過に応じて青→黄→赤にグラデーション変化
+背景エフェクト: 集中時間中は背景にパーティクルエフェクトや波紋アニメーション
+テスト目的: 視覚的な没入感がユーザーの集中力に与える影響を測定
+
+パターンB: カスタマイズ性の向上
+
+時間設定の柔軟化: 25分固定ではなく、15/25/35/45分から選択可能
+テーマ切り替え: ダーク/ライト/フォーカスモード（ミニマル）
+サウンド設定: 開始音/終了音/tick音のオン/オフ切り替え
+休憩時間カスタム: 5/10/15分から選択
+テスト目的: 個人の好みに合わせた設定がユーザー継続率に与える影響を測定
+
+パターンC: ゲーミフィケーション要素の追加
+
+経験値システム: 完了したポモドーロに応じてXPとレベルアップ
+達成バッジ: 「3日連続」「今週10回完了」などの実績システム
+週間/月間統計: より詳細なグラフ表示（完了率、平均集中時間など）
+ストリーク表示: 連続日数のカウント表示
+テスト目的: ゲーミフィケーション要素がモチベーション維持と継続利用に与える影響を測定
+</code></pre>
+<p class="image-container"><img alt="GitHub Copilotでのissue作成" src="../../img/a69389a1032d0aab.png"></p>
+<h2 is-upgraded>Issueの作成とCloud Agentのアサイン</h2>
+<ol type="1">
+<li><strong>Copilotが3つのIssueを自動生成</strong>します</li>
+<li>各Issueの内容を確認し、必要に応じて編集</li>
+<li><strong>Create</strong> ボタンをクリックして各Issueを作成</li>
+<li>Issue画面に遷移後、<strong>Assignees</strong> セクションで <strong>Copilot</strong> を選択してCloud Agentをアサイン</li>
+</ol>
+<p class="image-container"><img alt="Cloud AgentをIssueにアサイン" src="../../img/14fa8fd6031e20b8.png"></p>
+<h2 is-upgraded>期待されるPull Requestの結果</h2>
+<p>Cloud Agentがアサインされると、以下のような結果が期待できます：</p>
+<ul>
+<li><strong>自動的なコード実装</strong>: 各Issueの要件に基づいた機能実装</li>
+<li><strong>Pull Requestの作成</strong>: 実装完了後の自動PR作成</li>
+<li><strong>包括的なテスト</strong>: 単体テストとUIテストの両方を含む</li>
+</ul>
+<h3 is-upgraded>パターンA: 視覚的フィードバックの強化</h3>
+<p class="image-container"><img alt="視覚的フィードバック強化のPR結果" src="../../img/705e39500bad3885.png"></p>
+<h3 is-upgraded>パターンB: カスタマイズ性の向上</h3>
+<p class="image-container"><img alt="カスタマイズ性向上のPR結果" src="../../img/8184bbbafbf918ee.png"></p>
+<h3 is-upgraded>パターンC: ゲーミフィケーション要素の追加</h3>
+<p class="image-container"><img alt="ゲーミフィケーション要素のPR結果" src="../../img/3e0271a144640fba.png"></p>
+<aside class="special"><p><strong>MCP Serverの活用</strong>: GitHub MCP ServerとPlaywright MCP Serverが初期設定としてCloud Agentに含まれています。これにより、単体テストだけではなく、スクリーンショットによるUIの自動チェックも行うことができます。Cloud Agentは実装した機能が期待通りに動作するかを視覚的に検証し、より品質の高いコードを提供します。</p>
+</aside>
 
 
       </google-codelab-step>
@@ -347,7 +440,6 @@ git push origin feature/pomodoro
 <li>実際のプロジェクトでCopilotを活用してみる</li>
 <li>より複雑なアプリケーション開発に挑戦する</li>
 <li>Copilotの新機能をキャッチアップする</li>
-<li>Copilot Web Relay を自身の環境にデプロイしてみる</li>
 </ul>
 <h2 is-upgraded>リソース</h2>
 <ul>
