@@ -247,6 +247,7 @@ Duration: 20
 
 ```
 現在の実装に対して、ユニットテストを充実させ、実行してください。  
+バックエンドとフロントエンド両方作成してください。  
 テストに失敗した場合は、そのエラーを解決するために必要な修正も行ってください。
 ```
 
@@ -458,16 +459,17 @@ Copilot Code Reviewは少し時間がかかるので、待っている間にCopi
 前半ではCopilotにテストコードは作成してもらいましたが、それをGitHub上のGitHub Actionsで動かせるようにはしていなかったため、そのためのワークフローを追加してもらい、CIを回せるようにしてみましょう。次のようにコメントしてみてください。
 
 ```
-自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
+自動テスト用のGitHub Actions用のワークフローを加えてください。
+バックエンド・フロントエンド両方テストしてください。 @copilot
 ```
 
-![](https://gyazo.com/fce3aea4bcfe5a89caff881105d0dcf2.png)
+![](https://gyazo.com/5bcb72dae70025e8f5b834ef4963d00a.png)
 
 Copilotがコメントに 👀 で反応し、Cloud Agentのセッションが起動してコードの修正を行い、Pull Requestにコミットしてくれます。
 
-![](https://i.gyazo.com/f13b77eda92b61c3cfe61e0effedc303.png)
+![](https://i.gyazo.com/21fe811df8e9abda8d72a8b1fbf33b3a.png)
 
-<!-- TODO: approve workflow run の画像 -->
+Workflowの実行をApproveして、CIが通ることを確認しましょう。
 
 ## Copilot Code Reviewの結果確認と追加変更
 
@@ -477,7 +479,7 @@ Copilot Code Reviewの結果を閲覧しましょう。Copilotは以下のよう
 - **指摘事項**: 潜在的な問題点の指摘
 - **改善提案**: コードの品質向上のための具体的な提案
 
-![](https://i.gyazo.com/a5b9e8e90dcf90f1ce9c058f2917f15d.png)
+![](https://i.gyazo.com/f0eaa5c3a88556b78d75a9bb134413a9.png)
 
 単純な修正であればコメント上に "Suggested changeset" として提案されるので、"Commit suggestion" をクリックして修正と取り込めます。複雑な変更の場合でも "Fix with Copilot" をクリックすれば、Cloud Agentのセッションが起動して自動的にコードの修正を行い、変更をPull Requestにコミットしてくれます。
 
@@ -486,7 +488,9 @@ Copilot Code Reviewの結果を閲覧しましょう。Copilotは以下のよう
 ## Copilot Cloud Agentによる追加機能開発 (オプション)
 Duration: 20
 
-GitHub CopilotのWebサイト版を使用して、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。
+![](https://gyazo.com/5b849a3a8ccf451a93fbab7fe9d1fc2d.png)
+
+プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。
 
 ### GitHub Copilotでのissue自動起票
 

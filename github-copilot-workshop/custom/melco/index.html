@@ -191,6 +191,7 @@
 <h2 is-upgraded>テストの実装</h2>
 <p>次のようなプロンプトを実行してみましょう。</p>
 <pre><code>現在の実装に対して、ユニットテストを充実させ、実行してください。  
+バックエンドとフロントエンド両方作成してください。  
 テストに失敗した場合は、そのエラーを解決するために必要な修正も行ってください。
 </code></pre>
 <p>すると、Copilotがユニットテストのコードを記述して実行・修正までおこなってくれます。Copilotが<code>go test</code>など何かのコマンドを実行する前には、ユーザーに確認を求めてきます。もし、そのコマンドを実行してエラーが発生した場合、エージェントはエラー解決のための修正を自律的に実施します。</p>
@@ -353,11 +354,13 @@ git push origin feature/pomodoro
       <google-codelab-step label="Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
         <p>Copilot Code Reviewは少し時間がかかるので、待っている間にCopilot Cloud Agentに別の修正を依頼しましょう。Pull Requestのコメントで <code>@copilot</code> とメンションしながら修正依頼を指示することで、Copilot Cloud AgentがGitHubのクラウド上で動作してコードの修正を行い、Pull Requestに追加コミットしてくれます。</p>
 <p>前半ではCopilotにテストコードは作成してもらいましたが、それをGitHub上のGitHub Actionsで動かせるようにはしていなかったため、そのためのワークフローを追加してもらい、CIを回せるようにしてみましょう。次のようにコメントしてみてください。</p>
-<pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。 @copilot
+<pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。
+バックエンド・フロントエンド両方テストしてください。 @copilot
 </code></pre>
-<p class="image-container"><img src="../../img/544e80e3614a7abb.png"></p>
+<p class="image-container"><img src="../../img/85b8fcc2d9e9bc0f.png"></p>
 <p>Copilotがコメントに 👀 で反応し、Cloud Agentのセッションが起動してコードの修正を行い、Pull Requestにコミットしてくれます。</p>
-<p class="image-container"><img src="../../img/9b4de77bc70de77d.png"></p>
+<p class="image-container"><img src="../../img/37a8b12ca01474cd.png"></p>
+<p>Workflowの実行をApproveして、CIが通ることを確認しましょう。</p>
 
 
       </google-codelab-step>
@@ -369,7 +372,7 @@ git push origin feature/pomodoro
 <li><strong>指摘事項</strong>: 潜在的な問題点の指摘</li>
 <li><strong>改善提案</strong>: コードの品質向上のための具体的な提案</li>
 </ul>
-<p class="image-container"><img src="../../img/a7f621eebefc2e96.png"></p>
+<p class="image-container"><img src="../../img/7ecc30fc8e5801ae.png"></p>
 <p>単純な修正であればコメント上に &#34;Suggested changeset&#34; として提案されるので、&#34;Commit suggestion&#34; をクリックして修正と取り込めます。複雑な変更の場合でも &#34;Fix with Copilot&#34; をクリックすれば、Cloud Agentのセッションが起動して自動的にコードの修正を行い、変更をPull Requestにコミットしてくれます。</p>
 <p>必要な修正を取り込んで、テストがすべてパスしたら、Pull Requestをマージしましょう。</p>
 
@@ -377,7 +380,8 @@ git push origin feature/pomodoro
       </google-codelab-step>
     
       <google-codelab-step label="Copilot Cloud Agentによる追加機能開発 (オプション)" duration="20">
-        <p>GitHub CopilotのWebサイト版を使用して、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+        <p class="image-container"><img src="../../img/8dd804c3beff5e2d.png"></p>
+<p>プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
 <h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
 <ol type="1">
 <li><strong>GitHub.com</strong> にアクセスし、右上の <strong>Copilot</strong> アイコンをクリック</li>
