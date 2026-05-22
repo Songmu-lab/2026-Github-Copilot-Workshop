@@ -11,7 +11,7 @@
 
 ```bash
 # 一時フォルダに生成
-claat export -o ./temp-export workshop.md
+go tool claat export -o ./temp-export workshop.md
 
 # 最新バージョン番号を設定（例: v1.0.1）
 LATEST_VERSION="v1.0.1"
@@ -58,7 +58,7 @@ echo "✅ ${LATEST_VERSION} の更新が完了しました"
 CUSTOM_NAME="nri"
 
 # 一時フォルダに生成
-claat export -o ./temp-export "workshop-${CUSTOM_NAME}.md"
+go tool claat export -o ./temp-export "workshop-${CUSTOM_NAME}.md"
 
 # カスタムバージョンフォルダにコピー
 cp temp-export/github-copilot-workshop/index.html "github-copilot-workshop/custom/${CUSTOM_NAME}/index.html"
