@@ -75,7 +75,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="ポモドーロタイマーを作ってみよう" duration="30">
+      <google-codelab-step label="ポモドーロタイマーを作ってみよう" duration="5">
         <p>ここまでで、VS Code上で利用できるGitHub Copilotの基本的な使い方を学びました。次は、実際にアプリケーションを開発してみましょう。</p>
 <p>今回のハンズオンでは、ポモドーロタイマーアプリケーションを開発します。このアプリケーションは、作業時間と休憩時間を設定し、タイマーを管理する機能を持っています。</p>
 <p>以下のようなUIを持つアプリケーションを作成することを目指します。</p>
@@ -130,7 +130,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="やることを洗い出そう" duration="10">
+      <google-codelab-step label="やることを洗い出そう" duration="5">
         <p>ここまでで、UIモックとアーキテクチャの設計が固まりました。具体的にどのような機能を実装する必要があるかを検討していきましょう。これもCopilot Chatに相談してみます。その際、pomodoro.pngとarchitecture.mdを添付しましょう。</p>
 <pre><code>このポモドーロタイマーアプリケーションを作成するにあたって、実装する必要のある機能を洗い出してください。
 </code></pre>
@@ -151,7 +151,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="実装しよう" duration="30">
+      <google-codelab-step label="実装しよう" duration="10">
         <p>ここまでの準備が整ったので、いよいよ実装に取り掛かりましょう。前のステップで提案された実装計画に従って、段階的に機能を実装していきます。</p>
 <h2 is-upgraded>1. ブランチの準備</h2>
 <p>実装を始める前に、作業用のブランチを作成しましょう。 <code>git switch -c feature/pomodoro</code> としても良いのですが、ここではCopilotに作ってもらいましょう。</p>
@@ -185,7 +185,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="テストを書こう" duration="20">
+      <google-codelab-step label="テストを書こう" duration="5">
         <p>このまま実装を続ける前に、実装した機能に対してユニットテストを書いておきましょう。ユニットテストを書くことで、後のステップでの変更が既存の機能に影響を与えないことを確認できます。</p>
 <p>もし前ページの段階でユニットテストも実装されている場合は、このページは読み飛ばしてください。</p>
 <h2 is-upgraded>テストの実装</h2>
@@ -199,7 +199,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="残りの機能をAutopilotで実装しよう" duration="20">
+      <google-codelab-step label="残りの機能をAutopilotで実装しよう" duration="10">
         <p>残りの機能も同様にステップごとに進めて行けば良いわけですが、残りを一気に実装してみましょう。</p>
 <p>ここでは、ロングタスクを自律的に完遂してくれるAutopilotという機能を使います。VS CodeでAutopilotはpermission levelの選択肢として用意されています。Autopilotでは、Copilot がファイルの作成・編集やコマンドの実行を確認なしで自律的に進めるため、大規模な実装を一気におこなってほしい場面に適しています。</p>
 <p>Copilot ChatのPermission LevelをAutopilotに変更しましょう。デフォルトでは&#34;Default Approvals&#34; となっているところを &#34;Autopilot&#34; に変更します。</p>
@@ -218,8 +218,8 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="次のタスクに向けた設定確認" duration="20">
-        <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定がされているか確認しましょう。</p>
+      <google-codelab-step label="次のタスクに向けた設定確認" duration="5">
+        <p>ここから先のステップでは、GitHub.com上でのCopilot機能やCloud Agentを使用します。そのために必要な設定がされているか念のため確認しましょう。</p>
 <h2 is-upgraded>1. Copilot 機能の有効化</h2>
 <p>GitHubで利用可能なCopilot機能を有効化しましょう。</p>
 <ol type="1">
@@ -251,13 +251,13 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="[コラム] Copilotを使いこなすコツ" duration="10">
+      <google-codelab-step label="[コラム] Copilotを使いこなすコツ" duration="5">
         <p>さて、CopilotがAutopilotで実装を進めている間に、いくつか役に立つであろうポイントをここでは紹介します。</p>
 <h2 is-upgraded>UIに対して指示をしたい場合</h2>
 <p>UI上の特定の要素に対して指示を出したい場合は、UIのスクリーンショットをCopilotにアップロードすることで、その要素を認識させることができます。その際、スクリーンショットの上に特に指摘したい箇所を丸で囲むなり、矢印を引くなりして、どの要素に対して指示を出したいのかを明確にすると良いでしょう。</p>
 <p>または、現状のスクリーンショットと、期待するスクリーンショットを2枚アップロードすることで、その差分を確認してもらい、期待するUIにできるだけ近づくように指示を出すこともできます。</p>
 <h2 is-upgraded>毎回同じような指示を出している場合</h2>
-<p>プロンプトを書いたり、文脈を指定する際に、頻繁に同じような指示を出している場合は、Copilotにその指示を覚えさせることができます。具体的には、プロジェクト内に <code>.github/copilot-instructions.md</code> というファイルを作成し、その中に指示を書いておきます。このファイルがあると、Copilotはその指示を自動的に読み込み、以降のチャットでその指示を参照することができます。</p>
+<p>プロンプトを書いたり、文脈を指定する際に、頻繁に同じような指示を出している場合は、Copilotにその指示を覚えさせることができます。具体的には、プロジェクト内に <code>AGENTS.md</code> や <code>.github/copilot-instructions.md</code> というファイルを作成し、その中に指示を書いておきます。このファイルがあると、Copilotはその指示を自動的に読み込み、以降のチャットでその指示を参照することができます。</p>
 <p>以下にカスタム指示のサンプルを示します。</p>
 <pre><code language="language-markdown" class="language-markdown">このプロジェクトは、ポモドーロタイマーをFlaskで実装するものです。
 
@@ -340,7 +340,7 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="Copilot Code Review" duration="15">
+      <google-codelab-step label="Copilot Code Review" duration="5">
         <p>Pull Request上で、Copilotのコードレビュー機能を活用してみましょう。</p>
 <h2 is-upgraded>Copilotをレビュワーとしてアサイン</h2>
 <p><strong>Reviewers</strong> セクションで <strong>Copilot</strong> をアサインすることで、Copilotをレビュワーとしてアサインし、コードのレビューを依頼できます。</p>
@@ -351,7 +351,7 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
-      <google-codelab-step label="Copilot Cloud AgentにPull Requestの修正を依頼" duration="10">
+      <google-codelab-step label="Copilot Cloud AgentにPull Requestの修正を依頼" duration="5">
         <p>Copilot Code Reviewは少し時間がかかるので、待っている間にCopilot Cloud Agentに別の修正を依頼しましょう。Pull Requestのコメントで <code>@copilot</code> とメンションしながら修正依頼を指示することで、Copilot Cloud AgentがGitHubのクラウド上で動作してコードの修正を行い、Pull Requestに追加コミットしてくれます。</p>
 <p>前半ではCopilotにテストコードは作成してもらいましたが、それをGitHub上のGitHub Actionsで動かせるようにはしていなかったため、そのためのワークフローを追加してもらい、CIを回せるようにしてみましょう。次のようにコメントしてみてください。</p>
 <pre><code>自動テスト用のGitHub Actions用のワークフローを加えてください。
@@ -382,12 +382,15 @@ git push origin feature/pomodoro
       <google-codelab-step label="Pull requestのマージと動作確認" duration="0">
         <p>必要な修正を取り込んで、テストがすべてパスしたら、Pull Requestをマージしましょう。</p>
 <p class="image-container"><img src="../../img/8dd804c3beff5e2d.png"></p>
+<p>改めて、テストサーバーを起動して、ちゃんと動くか確認してみましょう。</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Copilot Cloud Agentによる追加機能開発 (オプション)" duration="20">
-        <p>プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+        <p>Cloud Agentを活用して、さらに機能追加を行ってみましょう。</p>
+<p>Cloud Agentの起動方法はいくつかありますが、ここでは、プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+<p>(IssueやPull Requestを事前に作らずとも、ブラウザ上のチャットから実装を進めてもらうことも出来ます。)</p>
 <h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
 <ol type="1">
 <li><strong>GitHub.com</strong> にアクセスし、右上の <strong>Copilot</strong> アイコンをクリック</li>
