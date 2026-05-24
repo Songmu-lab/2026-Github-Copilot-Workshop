@@ -59,7 +59,7 @@
 <li>リポジトリ作成画面で、リポジトリ名を入力し <strong>Create repository</strong> ボタンをクリック</li>
 </ol>
 <p class="image-container"><img alt="Create repository ボタンをクリック" src="../../img/c9edec8cdbdd7a7a.png"></p>
-<p>本日利用するオーガニゼーション配下にリポジトリを作成してください。リポジトリ名は <code>workshop-{あなたのユーザー名}</code> などとしてください（例: <code>workshop-johndoe</code>）。</p>
+<p>本日利用する <code>MitsubishiElectric-Innersource</code> オーガニゼーション配下にリポジトリを作成してください。リポジトリ名は <code>workshop-{あなたのユーザー名}</code> などとしてください（例: <code>workshop-johndoe</code>）。</p>
 <p>テンプレートからの作成が完了すると、新しいリポジトリが作成されます。</p>
 <h2 is-upgraded>ステップ2: 開発環境のセットアップ</h2>
 <p>作成したリポジトリを使って、GitHub Codespacesで開発環境を準備します：</p>
@@ -379,9 +379,15 @@ git push origin feature/pomodoro
 
       </google-codelab-step>
     
+      <google-codelab-step label="Pull requestのマージと動作確認" duration="0">
+        <p>必要な修正を取り込んで、テストがすべてパスしたら、Pull Requestをマージしましょう。</p>
+<p class="image-container"><img src="../../img/8dd804c3beff5e2d.png"></p>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Copilot Cloud Agentによる追加機能開発 (オプション)" duration="20">
-        <p class="image-container"><img src="../../img/8dd804c3beff5e2d.png"></p>
-<p>プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
+        <p>プロジェクトの改善提案をIssueとして自動生成し、Cloud Agentを活用してみましょう。</p>
 <h2 is-upgraded>GitHub Copilotでのissue自動起票</h2>
 <ol type="1">
 <li><strong>GitHub.com</strong> にアクセスし、右上の <strong>Copilot</strong> アイコンをクリック</li>
